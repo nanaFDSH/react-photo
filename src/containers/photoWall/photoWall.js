@@ -63,7 +63,6 @@ class PhotoWall extends Component {
    * @param centerIndex 指定居中排布哪个图片
    */
     rearrange(centerIndex) {
-        console.log(centerIndex)
         var imgsArrangeArr = this.state.imgsArrangeArr,
             Constant = this.state.Constant,
             centerPos = Constant.centerPos,
@@ -143,7 +142,6 @@ class PhotoWall extends Component {
      * @returns {Function}
      */
     center(index) {
-        console.log('789')
         return function () {
             this.rearrange(index);
         }.bind(this);
@@ -175,12 +173,12 @@ class PhotoWall extends Component {
     // 组件加载以后， 为每张图片计算其位置的范围
     componentDidMount() {
         // 首先拿到舞台的大小
-        console.log(ReactDOM.findDOMNode(this.refs.stage))
         var stageDOM = ReactDOM.findDOMNode(this.refs.stage),
             stageW = stageDOM.scrollWidth,
             stageH = stageDOM.scrollHeight,
             halfStageW = Math.ceil(stageW / 2),
             halfStageH = Math.ceil(stageH / 2);
+        console.log(stageDOM.scrollWidth)
 
         // 拿到一个imageFigure的大小
         var imgFigureDOM = ReactDOM.findDOMNode(this.refs.imgFigure0),
@@ -188,12 +186,15 @@ class PhotoWall extends Component {
             imgH = imgFigureDOM.scrollHeight,
             halfImgW = Math.ceil(imgW / 2),
             halfImgH = Math.ceil(imgH / 2);
+        console.log(imgFigureDOM.scrollWidth)
 
         // 计算中心图片的位置点
         this.state.Constant.centerPos = {
             left: halfStageW - halfImgW,
             top: halfStageH - halfImgH
         };
+
+        console.log(this.state.Constant.centerPos)
 
         // 计算左侧，右侧区域图片排布位置的取值范围
         this.state.Constant.hPosRange.leftSecX[0] = -halfImgW;
@@ -220,16 +221,12 @@ class PhotoWall extends Component {
 
         imageDatas.forEach(function (value, index) {
 
-            // console.log(index)
             if (!this.state.imgsArrangeArr[index]) {
                 this.state.imgsArrangeArr[index] = {
                     pos: {
                         left: 0,
                         top: 0
-                    },
-                    rotate: 0,
-                    isInverse: false,
-                    isCenter: false
+                    }
                 };
             }
 
